@@ -30,7 +30,7 @@ const takePicture = async () => {
     resultType: CameraResultType.Uri
   });
   const imageUrl = image.webPath;
-  imageInfo.value = image,
+  imageInfo.value = `Image captured: ${imageUrl}`;
   imageSrc.value = imageUrl;
 };
 
