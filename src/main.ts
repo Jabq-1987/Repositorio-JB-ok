@@ -4,6 +4,10 @@ import router from './router';
 import { createPinia } from 'pinia';
 import { IonicVue } from '@ionic/vue';
 
+// Above the createApp() line
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+defineCustomElements(window);
+
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
 
