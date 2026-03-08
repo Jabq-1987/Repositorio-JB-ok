@@ -15,80 +15,22 @@
                         <ion-label>{{ userStore.userData.usuario }}</ion-label>
                         <ion-button slot="end" fill="solid" size="small" @click="handleLogout">Salir</ion-button>
                     </ion-item>
-                    
-                        <ion-accordion-group>
-                            <ion-accordion value="first">
-                            <ion-item slot="header" color="light">
-                                <ion-label>First Accordion</ion-label>
-                            </ion-item>
-                                <div slot="content">
-                                    <ion-list>
-                                        <ion-item>
-                                            <ion-label>Pokémon Yellow</ion-label>
-                                        </ion-item>
-                                        <ion-item>
-                                            <ion-label>Mega Man X</ion-label>
-                                        </ion-item>
-                                        <ion-item>
-                                            <ion-label>The Legend of Zelda</ion-label>
-                                        </ion-item>
-                                        <ion-item>
-                                            <ion-label>Pac-Man</ion-label>
-                                        </ion-item>
-                                        <ion-item>
-                                            <ion-label>Super Mario World</ion-label>
-                                        </ion-item>
-                                    </ion-list>
-                                </div>
-                            </ion-accordion>
-                            <ion-accordion value="second">
-                            <ion-item slot="header" color="light">
-                                <ion-label>Second Accordion</ion-label>
-                            </ion-item>
-                                <div slot="content">
-                                    <ion-list>
-                                        <ion-item>
-                                            <ion-label>Pokémon Yellow</ion-label>
-                                        </ion-item>
-                                        <ion-item>
-                                            <ion-label>Mega Man X</ion-label>
-                                        </ion-item>
-                                        <ion-item>
-                                            <ion-label>The Legend of Zelda</ion-label>
-                                        </ion-item>
-                                        <ion-item>
-                                            <ion-label>Pac-Man</ion-label>
-                                        </ion-item>
-                                        <ion-item>
-                                            <ion-label>Super Mario World</ion-label>
-                                        </ion-item>
-                                    </ion-list>
-                                </div>
-                            </ion-accordion>
-                            <ion-accordion value="third">
-                            <ion-item slot="header" color="light">
-                                <ion-label>Third Accordion</ion-label>
-                            </ion-item>
-                                <div slot="content">
-                                    <ion-list>
-                                        <ion-item>
-                                            <ion-label>Pokémon Yellow</ion-label>
-                                        </ion-item>
-                                        <ion-item>
-                                            <ion-label>Mega Man X</ion-label>
-                                        </ion-item>
-                                        <ion-item>
-                                            <ion-label>The Legend of Zelda</ion-label>
-                                        </ion-item>
-                                        <ion-item>
-                                            <ion-label>Pac-Man</ion-label>
-                                        </ion-item>
-                                        <ion-item>
-                                            <ion-label>Super Mario World</ion-label>
-                                        </ion-item>
-                                    </ion-list></div>
-                            </ion-accordion>
-                        </ion-accordion-group>
+                    <ion-accordion-group>
+                            <template v-for="(menu, key) in contentStore.menu" :key="key">
+                                <ion-accordion :value="'menu-' + key" >
+                                     <ion-item slot="header" color="light">
+                                        <ion-label> <i :class="menu.icon"></i> {{ menu.name }}</ion-label>
+                                    </ion-item>
+                                    <div slot="content">
+                                        <ion-list>
+                                            <ion-item v-for="(item, itemKey) in menu.sub" :key="itemKey">
+                                                <ion-label>{{ item.name }}</ion-label>
+                                            </ion-item>
+                                        </ion-list>
+                                     </div>
+                                </ion-accordion>
+                            </template>
+                    </ion-accordion-group>
                     
                 </ion-list>
             </ion-content>
@@ -103,16 +45,20 @@
         </ion-header>
         <ion-content id="main-content" class="ion-padding">
             
-             Tap the button in the toolbar to open the menu. </ion-content>
+             Tap the button in the toolbar to open the menu. 
+            <pre>{{ contentStore.menu}} </pre>
+        </ion-content>
     </ion-page>
 </template>
 
 <script setup lang="ts">
   import { IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-  import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonList, IonAvatar } from '@ionic/vue';
+  import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonList, IonAvatar, IonButton } from '@ionic/vue';
   import { useUserStore } from '@/stores/user';
+  import { useContentStore } from '@/stores/content';
   import { useRouter } from 'vue-router';
   
+  const contentStore = useContentStore();
   const userStore = useUserStore();
   const router = useRouter();
   async function handleLogout(){
@@ -123,12 +69,12 @@
 
 <style scoped>
   ion-menu::part(backdrop) {
-    background-color: rgba(255, 0, 255, 0.5);
+    background-color: rgba(202, 226, 20, 0.5);
   }
 
   ion-menu::part(container) {
-    border-radius: 0 20px 20px 0;
+    border-radius: 0 30px 20px 0;
 
-    box-shadow: 4px 0px 16px rgba(255, 0, 255, 0.18);
+    box-shadow: 4px 0px 16px rgba(49, 230, 40, 0.871);
   }
 </style>
