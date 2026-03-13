@@ -11,26 +11,29 @@
     <div v-if="imageSrc">
       <img :src="imageSrc" alt="Captured Image" style="width: 100%; margin-top: 20px;" />
     </div>
-    <pre>{{ imageInfo }}</pre>
-
+   
   </ion-content>
 </ion-page>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+
 import { Camera, CameraResultType } from '@capacitor/camera';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/vue';
+
 const imageSrc = ref<string | undefined>('');
-const imageInfo = ref<string | undefined>('');
+      const imageInfo = ref<any>(null);
+
 const takePicture = async () => {
   const image = await Camera.getPhoto({
     quality: 90,
     allowEditing: true,
     resultType: CameraResultType.Uri
   });
+
+  imageInfo.value = image;
   const imageUrl = image.webPath;
-  imageInfo.value = `Image captured: ${imageUrl}`;
   imageSrc.value = imageUrl;
 };
 

@@ -4,7 +4,9 @@ import BaseLayout from '@/layouts/BaseLayout.vue';
 import { useUserStore } from '@/stores/user';
 
 const Login = () => import('@/views/Login.vue');
-const Registro = () => import('@/views/Registro.vue');  
+const Registro = () => import('@/views/Registro.vue'); 
+const Camara = () => import('@/views/Camara.vue');
+const SeccionContenidos = () => import('@/views/SeccionContenido.vue'); 
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -30,7 +32,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/camara',
     name: 'Camara',
-    component: () => import('@/views/Camara.vue'),
+   
+    component: Camara,
     meta: {
       requiresAuth: false
     }
@@ -42,6 +45,13 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true
     },
+    children: [
+      {
+        path: ':name',
+        name: 'SeccionContenidos',
+        component: SeccionContenidos,
+      },
+    ]
   },
 ]
 
