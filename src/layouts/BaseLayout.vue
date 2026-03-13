@@ -22,15 +22,17 @@
                                         <ion-label> <i :class="menu.icon"></i> {{ menu.name }}</ion-label>
                                     </ion-item>
                                     <div slot="content">
-                                        <ion-list>
-                                           <ion-menu-toggle v-for="(item, itemKey) in menu.sub" :key="itemKey">
+                                        <ion-list>  
+                                            <template v-for="(item, itemKey) in menu.sub" :key="itemKey">
+                                            <ion-menu-toggle v-if="item.active === 'yes'">
                                             <ion-item 
                                             :router-link="'/'+item.url"
                                             @click="contentStore.$getContent(item.internal_name)"
                                             >
-                                                <ion-label>{{ item.name }}</ion-label>
+                                            <ion-label>{{ item.name }}</ion-label>
                                             </ion-item>
-                                        </ion-menu-toggle>
+                                            </ion-menu-toggle>
+                                            </template>
                                         </ion-list>
                                      </div>
                                 </ion-accordion>
@@ -54,7 +56,6 @@
 
     </ion-page>
 </template>
-
 <script setup lang="ts">
   import { IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
  import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonList, IonAvatar, IonButton, IonRouterOutlet,
@@ -71,7 +72,8 @@
     await userStore.$setLogin(null);
     router.push('/login');
   }
- contentStore.$getContent(route.params.name as string);
+
+  contentStore.$getContent(route.params.name as string)
   //comentario de prueba
 
 </script>
