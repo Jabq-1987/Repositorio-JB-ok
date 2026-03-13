@@ -32,10 +32,9 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/camara',
     name: 'Camara',
-   
     component: Camara,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
