@@ -1,4 +1,3 @@
-@ -0,0 +1,42 @@
 <template>
      <ion-page v-if="!contentStore.loading">
         <ion-content class="ion-padding" >
@@ -15,7 +14,6 @@
                      allowfullscreen>
                     </iframe>
             </div>
-            <pre>{{ contentStore.next }}</pre>
         </ion-content>
           <ion-footer :translucent="true">
             <ion-toolbar>
@@ -30,11 +28,14 @@
             </ion-toolbar>
         </ion-footer>
     </ion-page>
+    <SkeletonText v-else></SkeletonText>
+
 </template>
 <script setup lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonButton, IonProgressBar } from '@ionic/vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useContentStore } from '@/stores/content';
+import SkeletonText from '@/components/SkeletonText.vue';
 const route = useRoute(); 
 const contentStore = useContentStore();
 const router = useRouter();
@@ -68,7 +69,7 @@ contentStore.$getContent(contentStore.home.internal_name).then( res => {
         item.sub.map( (sub_item: any) => {
         if(sub_item.id === contentStore.next.id) {
             sub_item.active = 'yes';
-            localStorage.setItem('home', JSON.stringify(contentStore.next))
+            contentStore.$setHome(contentStore.next)
         }
       })
     })
@@ -82,10 +83,11 @@ contentStore.$getContent(contentStore.home.internal_name).then( res => {
             
             setNext();
             checkNext();
-            contentStore.$getContent(contentStore.next.internal_name).then( res => {
-                contentStore.$seteaSiguiente();
-                router.push('/' + contentStore.next.url);
-            })
+            contentStore.$seteaSiguiente();
+            router.push('/' + contentStore.next.url);
+            //contentStore.$getContent(contentStore.next.internal_name).then( res => {
+            
+             //})
         }
     }
 </script>

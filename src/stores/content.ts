@@ -8,8 +8,9 @@ export const useContentStore = defineStore('content', () => {
         contenido:{
             name: null,
             contenido: null,
-            youtube: '',
+            youtube: '',   
         },
+        to: null,
         internal_name: null,
     }); 
     const home = ref(localStorage.getItem('home') ? JSON.parse(localStorage.getItem('home') as string) : {
