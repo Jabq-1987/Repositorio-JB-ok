@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router';
 import { createPinia } from 'pinia';
 import { IonicVue } from '@ionic/vue';
+import { StatusBar } from '@capacitor/status-bar';
+
+StatusBar.setOverlaysWebView({ overlay: false });
 
 // Above the createApp() line
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
